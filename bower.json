@@ -1,0 +1,19 @@
+{
+  "name": "youactive24",
+  "description": "site for doing sport and other activities",
+  "main": "index.js",
+  "authors": [
+    "tr0ythex"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/tr0ythex/youactive24",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "angular": "^1.5.8"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": "assets/stylesheets/_bootstrap.scss"
+    }
+  }
+}
