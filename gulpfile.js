@@ -7,12 +7,32 @@ const gulp = require('gulp'),
       useref = require('gulp-useref'),
       reload = browserSync.reload;
 
-gulp.task('serve', () => {
+gulp.task('styles', () => {
+  gulp.src('app/styles/sass/**/*.sass')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(reload({stream: true}));
+});
+
+gulp.task('scripts', () => {
+  gulp.src('app/scripts/**/*.js')
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe(reload({stream: true}));
+});
+
+// for production
+gulp.task('html', ['styles', 'scripts'], () => {
+  gulp.src('app/*.html')
+    .pipe(gulp.dest('dist'));
+});
+
+// dev server
+gulp.task('serve:dev', ['styles', 'scripts'], () => {
   browserSync({
     notify: false,
     port: 8000,
     server: {
-      baseDir: ['app'],
+      baseDir: ['.tmp', 'app'],
       routes: {
         '/bower_components': 'bower_components'
       }
@@ -20,26 +40,11 @@ gulp.task('serve', () => {
   });
 
   gulp.watch('app/*.html').on('change', reload);
-  gulp.watch('app/styles/**/*.sass', ['sass']);
+  gulp.watch('app/styles/**/*.sass', ['styles']);
+  gulp.watch('app/scripts/**/*.js', ['scripts']);
 });
 
-gulp.task('styles', () => {
-  gulp.src('app/styles/sass/**/*.sass')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('dist/styles'))
-    .pipe(reload({stream: true}));
-});
-
-gulp.task('scripts', () => {
-  gulp.src('app/scripts/**/*.js')
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(reload({stream: true}));
-});
-
-gulp.task('html', ['styles', 'scripts'], () => {
-  gulp.src('app/*.html')
-    .pipe(gulp.dest('dist'));
-});
+// TODO: write task for prod server
 
 // <!-- bowers:scss --> и <!-- endbower -->
 gulp.task('wiredep', () => {
@@ -58,6 +63,5 @@ gulp.task('wiredep', () => {
 gulp.task('useref', () => {
   gulp.src('app/index.html')
     .pipe(useref())
-    // TODO: поменять на папку dist (или что-то в этом духе)
-    .pipe(gulp.dest('app'));
+    .pipe(gulp.dest('dist'));
 });
