@@ -1,6 +1,7 @@
 /* jshint esversion: 6 */
 
 const webdriver = require('selenium-webdriver'),
+      by = webdriver.By,
       phantomjs = require('selenium-webdriver/phantomjs');
 
 const driver = new webdriver.Builder()
@@ -11,17 +12,25 @@ const chai = require('chai'),
     expect = chai.expect;
 
 
-describe('Site title', () => {
+describe('Main page', () => {
 
   before((done) => {
     driver.navigate().to('http://localhost:8000')
     .then(() => done());
   });
 
-  it('should be "You Active 24"', (done) => {
+  it('should have a title with text "You Active 24"', (done) => {
     driver.getTitle()
     .then((title) => {
       expect(title).to.be.equal('You Active 24');
+    })
+    .then(() => done());
+  });
+
+  it('should contain 9 panels with panel bodies', (done) => {
+    let panels = driver.findElements(by.className('panel'))
+    .then((elements) => {
+      expect(elements.length).to.be.equal(9);
     })
     .then(() => done());
   });
