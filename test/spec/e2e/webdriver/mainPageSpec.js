@@ -28,7 +28,7 @@ describe('Main page', () => {
   });
 
   it('should contain 9 panels with panel bodies', (done) => {
-    let panels = driver.findElements(by.className('panel'))
+    driver.findElements(by.className('panel'))
     .then((elements) => {
       expect(elements.length).to.be.equal(9);
     })

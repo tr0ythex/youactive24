@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha test/spec/unit -u bdd -R spec -t 500 --recursive",
     "watch": "mocha test/spec/unit -u bdd -R spec -t 500 --recursive --watch",
-    "e2e-test": "mocha test/spec/e2e -u bdd -R spec -t 10000"
+    "e2e-test": "~/.npm-packages/bin/protractor test/spec/e2e/protractor/conf.js"
   },
   "repository": {
     "type": "git",
