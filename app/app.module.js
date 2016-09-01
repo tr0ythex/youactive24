@@ -1,2 +1,1 @@
-angular
-  .module('youactive24', []);
+angular.module('youactive24', ['ngRoute']);

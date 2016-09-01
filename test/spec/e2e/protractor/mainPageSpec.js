@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
 
-describe('Main page', () => {
+describe('Home page', () => {
 
   beforeEach(function() {
     browser.get('http://localhost:8000');
